@@ -72,23 +72,3 @@ def add_url_data():
 
 if __name__ == "__main__":
     app.run()
-
-
-"""
-Two API
-
-- SMS
-- Email
-
-Email Agenda
-- Sending emails (provide a list of users that an automated email will be sent to)
-"""
-
-
-"""
-Agenda:
-- Connect to MongoDB Cloud
-- Make sure that the phishing_app url is deployed on python anywhere and can be accessed from anywhere.
-- Data is being inserted in MongoDB
-- Upload the new data on Github & make it public
-"""
