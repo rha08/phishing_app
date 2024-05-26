@@ -20,7 +20,9 @@ class URLdata():
 app = Flask(__name__)
 
 # set up the MongoDB connection
-client = MongoClient('mongodb://localhost:27017')
+uri = "mongodb+srv://rha:Ash332577@phishingcluster.yow9qr6.mongodb.net/?retryWrites=true&w=majority&appName=PhishingCluster"
+password = "Ash332577"
+client = MongoClient(uri)
 
 db = client["url_data"]
 
@@ -30,10 +32,18 @@ db = client["url_data"]
 def add_url_data():
     # get data from request
 
+    # gets the 'email' from the url
+
     collection = db['url_data']
 
-    sampleURL = URLdata("survey003","www.yahoo.com",1,"Email",["Rhea"])
-    hashInput = sampleURL.survey_ID + sampleURL.url + sampleURL.source
+    email = request.args.get('email')
+    survey_ID = request.args.get('survey_ID')
+    source = request.args.get('source')
+
+    print(email, survey_ID, source)
+
+    sampleURL = URLdata(survey_ID,"www.gmail.com",1,source,[email])
+    hashInput = survey_ID + source
 
     data = {
         "_id": hash(hashInput),
@@ -65,33 +75,20 @@ if __name__ == "__main__":
 
 
 """
-### primary key:
-unique key: (URL + Source + Survey_ID)
+Two API
 
-Hash Function: used to convert URL + Source + Survey_ID to an encrypted string value (Ex. ufweifuhwfed)
+- SMS
+- Email
 
+Email Agenda
+- Sending emails (provide a list of users that an automated email will be sent to)
 """
 
+
 """
-TASK
-
-current state: simple insert
-
-TASK ONE:
-
-While inserting, check if the primary key is present or not already in the database
-If present:
-    1. Increase count
-    2. Add user
-
-Otherwise:
-    1. Do a fresh insert
-
-https://towardsdatascience.com/using-mongo-databases-in-python-e93bc3b6ff5f
-
-
-TASK TWO:
-
-Host my project at github and send it to sir via mail.
-pulkit.jetlearn@gmail.com
+Agenda:
+- Connect to MongoDB Cloud
+- Make sure that the phishing_app url is deployed on python anywhere and can be accessed from anywhere.
+- Data is being inserted in MongoDB
+- Upload the new data on Github & make it public
 """
